@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import AdminDashboard from './pages/ControlPanel'; // Tu componente de tablero de control
 import HomePage from './pages/HomePage';
+import Carrousel from './components/Carrousel';
 
 function App() {
   return (

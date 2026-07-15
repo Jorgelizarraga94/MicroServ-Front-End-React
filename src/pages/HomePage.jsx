@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
-
+import Carrousel from '../components/Carrousel';
 const HomePage = () => {
   const [products, setProducts] = useState([]);
 
@@ -12,10 +12,13 @@ const HomePage = () => {
   }, []);
 
   return (
+    
     <div className="container">
-      <div className="row g-4">
+      <Carrousel />
+      <br />
+      <div className="row g-4 justify-content-center">
         {products.map(p => (
-          <div className="col-md-4" key={p.id}>
+          <div className="col-md-2" key={p.id}>
             <ProductCard product={p} />
           </div>
         ))}

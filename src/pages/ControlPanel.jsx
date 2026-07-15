@@ -1,8 +1,74 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const ControlPanel = () => {
+  const [products, setProducts] = useState([]);
+  const [view, setView] = useState('add');
+
+  // Cargamos los productos al abrir el panel
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    const res = await axios.get('http://localhost:8080/product-service/product/products');
+    setProducts(res.data);
+  };
+
+  return (
+    <div className="container mt-4">
+      <div className="row">
+        {/* Sidebar */}
+        <div className="col-md-3">
+          <div className="list-group">
+            <button className="list-group-item" onClick={() => setView('add')}>Agregar</button>
+            <button className="list-group-item" onClick={() => setView('list')}>Productos</button>
+          </div>
+        </div>
+
+        {/* Contenido Dinámico */}
+        <div className="col-md-9">
+          {view === 'add' ? (
+            <FormularioAgregar />
+          ) : (
+            <TablaProductos products={products} setProducts={setProducts} />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Componente de tabla que recibe la lista
+const TablaProductos = ({ products, setProducts }) => {
+  const handleDelete = async (id) => {
+    await axios.delete(`http://localhost:8080/product-service/product/delete/${id}`);
+    // Esto es lo que hace la "magia": actualiza la lista al instante
+    setProducts(products.filter(p => p.id !== id));
+  };
+  const truncateText = (text, limit) => {
+  if (text.length <= limit) return text;
+  return text.substring(0, limit) + "...";
+};
+
+  return (
+    <table className="table">
+      <tbody>
+        {products.map(p => (
+          <tr key={p.id}>
+            <td>{p.id}</td>
+            <td>{truncateText(p.name, 100)}</td>
+            <td>${p.precio}</td>
+
+            <td><button className="btn btn-danger" onClick={() => handleDelete(p.id)}>Eliminar</button></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+const FormularioAgregar = () => {
   const [product, setProduct] = useState({ name: '', marca: '', precio: '', photo: '' });
 
     const handleImageUpload = async (e) => {
