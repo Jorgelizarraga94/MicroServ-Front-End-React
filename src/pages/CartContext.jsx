@@ -5,28 +5,43 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-
-  // Cargar carrito desde BD al abrir la app
-  useEffect(() => {
-    loadCart();
-  }, []);
+  const [cartId, setCartId] = useState(null); // <--- NUEVO: Guardamos el ID aquí
 
   const loadCart = async () => {
-    const res = await axios.get('http://localhost:8080/cart-service/cart/getCarts');
-    setCart(res.data);
+    try {
+      // Intentamos cargar un ID que ya conocemos (ej. el 12 fijo o uno que guardaste)
+      const res = await axios.get(`http://localhost:8080/cart-service/cart/${nuevoCarrito.data.id}`);
+      setCart(res.data.items);
+      setCartId(12);
+    } catch (error) {
+      if (error.response?.status === 404) {
+        // Creamos el carrito SI Y SOLO SI no existe
+        const nuevoCarrito = await axios.post('http://localhost:8080/cart-service/cart/create');
+        setCartId(nuevoCarrito.data.id); // <--- Guardamos el ID real que nos dio el backend
+        setCart([]);
+      }
+    }
   };
 
-  const addToCart = async (product) => {
-    // 1. Guardar en BD
+  const addToCart = async (product , cant) => {
+    // Si todavía no tenemos cartId, lo creamos antes de agregar el producto
+    let currentId = cartId;
+    if (!currentId) {
+        const res = await axios.post('http://localhost:8080/cart-service/cart/create');
+        currentId = res.data.id;
+        setCartId(currentId);
+    }
+
+    // Ahora SÍ tenemos un ID seguro para usar
     await axios.post('http://localhost:8080/cart-service/cart/add', {
-    cartId: 1,
-    productId: product.id,
-    cant: 1
+      cartId: currentId,
+      productId: product.id,
+      cant: cant
     });
-    // 2. Refrescar estado local
+    console.log(`Producto ${product.name} agregado al carrito con ID ${currentId}`);
     loadCart(); 
   };
-
+  
   return (
     <CartContext.Provider value={{ cart, addToCart }}>
       {children}
