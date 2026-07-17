@@ -1,9 +1,11 @@
 import { useState , useContext } from 'react';
 import { CartContext } from '../pages/CartContext';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useContext(CartContext);
   const [cant, setCant] = useState(1);
+  const { isAuthenticated } = useAuth0();
 
   const handleAdd = () => {
     // Enviamos el producto y la cantidad elegida
@@ -33,7 +35,10 @@ const ProductCard = ({ product }) => {
       <div className="card-body">
         <h5 className="card-title">{truncateText(product.name, 20)}</h5>
         <p className="card-text">Precio: ${product.price}</p>
+        {isAuthenticated && (
         <p className="card-text">cantidad: </p>
+        )}
+        {isAuthenticated && (
         <input
           type="number" 
           min="1" 
@@ -41,7 +46,10 @@ const ProductCard = ({ product }) => {
           onChange={(e) => setCant(parseInt(e.target.value))} 
           style={{ width: '50px' }}
         />
-        <button className="btn btn-success" onClick={() => addToCart(product,cant)}>Agregar al Carrito</button>
+        )}
+        {isAuthenticated && (
+        <button className="btn btn-success" onClick={() => { addToCart(product,cant)}}>Agregar al Carrito</button>
+        )}
       </div>
     </div>
   );
