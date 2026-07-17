@@ -10,10 +10,10 @@ export const CartProvider = ({ children }) => {
   const loadCart = async () => {
     try {
       // Intentamos cargar un ID que ya conocemos (ej. el 12 fijo o uno que guardaste)
-      const res = await axios.get(`http://localhost:8080/cart-service/cart/${nuevoCarrito.data.id}`);
-      setCart(res.data.items);
-      setCartId(12);
+      const res = await axios.get(`http://localhost:8080/cart-service/cart/${cartId}`);
+      setCart(res.data.items || []);
     } catch (error) {
+      console.error("No se pudo cargar el carrito:", error);
       if (error.response?.status === 404) {
         // Creamos el carrito SI Y SOLO SI no existe
         const nuevoCarrito = await axios.post('http://localhost:8080/cart-service/cart/create');
@@ -43,7 +43,7 @@ export const CartProvider = ({ children }) => {
   };
   
   return (
-    <CartContext.Provider value={{ cart, addToCart }}>
+    <CartContext.Provider value={{ cart, addToCart, cartId }}>
       {children}
     </CartContext.Provider>
   );

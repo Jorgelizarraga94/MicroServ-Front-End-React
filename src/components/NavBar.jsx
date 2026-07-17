@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/logo.jpg';
-import cart from '../pages/CartContext.jsx';
+import CartPage from '../pages/CartPage';
+
 const Navbar = () => {
   return (
     <nav className="navbar mb-4" style={{ backgroundColor: '#0088b1' }}>
@@ -9,9 +10,10 @@ const Navbar = () => {
         <div className="d-flex">
           <Link className="nav-link text-white mx-2" to="/">Inicio</Link>
           <Link className="nav-link text-white" to="/dashboard">Tablero de Control</Link>
-          <Link className="nav-link text-white" to={cart}>
+          <Link className="nav-link text-white" to="/cart">
             <i className="bi bi-cart-check-fill" ></i>
           </Link>
+          <Link className="nav-link text-white" to="/sales">Ventas</Link>
         </div>
       </div>
     </nav>

@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import AdminDashboard from './pages/ControlPanel'; // Tu componente de tablero de control
 import HomePage from './pages/HomePage';
 import Carrousel from './components/Carrousel';
+import CartPage from './pages/CartPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/cart" element={<CartPage />} />
         <Route path="/dashboard" element={<AdminDashboard/>} />
       </Routes>
     </Router>
