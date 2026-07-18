@@ -9,11 +9,15 @@ const SalesPage = () => {
     useEffect(() => {
         const fetchSales = async () => {
             if (user?.sub) {
-                const token = await getAccessTokenSilently();
-                const response = await axios.get(`http://localhost:8080/sale-service/sale/getSalesByUser/${user.sub}`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                setSales(response.data);
+                try {
+                    const token = await getAccessTokenSilently();
+                    const response = await axios.get(`http://localhost:8080/sale-service/sale/getSalesByUser/${user.sub}`, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    setSales(response.data);
+                } catch (error) {
+                    console.error("Error al obtener las ventas:", error);
+                }
             }
         };
         fetchSales();
@@ -27,7 +31,7 @@ const SalesPage = () => {
                     <table className="table table-bordered table-hover mt-3">
                         <thead className="table-light">
                             <tr>
-                                <th>ID Venta</th>
+                                <th>Venta</th>
                                 <th>Fecha</th>
                                 <th>Detalle de Productos</th>
                                 <th>Total</th>
@@ -39,26 +43,20 @@ const SalesPage = () => {
                                     <td className="align-middle">{sale.saleId}</td>
                                     <td className="align-middle">{sale.date}</td>
                                     
-                                    {/* Nueva columna con la lista de productos */}
                                     <td>
                                         <ul className="list-unstyled mb-0">
-                                            {/* Iteramos sobre los items del carrito */}
-                                            {sale.cart?.items?.map((producto, index) => (
-                                                <li key={index} className="border-bottom py-1">
-                                                    <strong>{producto.name}</strong> <br/>
+                                            {sale.items?.map((producto, index) => (
+                                                <li key={index} className="border-bottom py-2">
+                                                    <strong>{"producto nro:  " +producto.productId + " - "}{producto.brand ? `${producto.brand} - ` : ''}{producto.name}</strong> <br/>
                                                     <span className="text-muted">
-                                                        {producto.quantity} x ${producto.unitPrice} 
-                                                        {/* Si tienes subtotal en el producto, puedes usarlo directamente */}
+                                                        {producto.quantity} un. x ${producto.unitPrice} 
                                                         {' '}(Subtotal: ${(producto.quantity * producto.unitPrice).toFixed(2)})
                                                     </span>
                                                 </li>
                                             ))}
                                         </ul>
                                     </td>
-                                    
-                                    <td className="align-middle fw-bold text-success">
-                                        ${(sale.cart?.totalPrice || 0).toFixed(2)}
-                                    </td> 
+                                    <td className="align-middle fw-bold text-success">${sale.totalPrice}</td> 
                                 </tr>
                             ))}
                         </tbody>

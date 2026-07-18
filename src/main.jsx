@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'; // <--- ESTO ES LO QUE FALTA
 import CartProvider from './pages/CartContext';
 import { StrictMode } from 'react';
+import './App.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
  

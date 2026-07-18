@@ -1,54 +1,76 @@
 import { Link } from 'react-router-dom';
-import logo from '../assets/images/logo.jpg';
-import CartPage from '../pages/CartPage';
 import { useAuth0 } from "@auth0/auth0-react";
-
+import logo from '../assets/images/logo.jpg';
 
 const Navbar = () => {
-    // 1. Mueve el hook AQUÍ DENTRO
     const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
-
+    
+    // Tu lógica de admin
     const namespace = 'https://mi-tienda-app.com/roles';
     const roles = user?.[namespace] || [];
     const isAdmin = roles.includes('admin');
 
-
     return (
-        <nav className="navbar mb-4" style={{ backgroundColor: '#0088b1' }}>
+        <nav className="navbar navbar-expand-lg navbar-dark mb-4" style={{ backgroundColor: '#000000' }}>
+            {/* El 'container' es el que centra el contenido y le da el ancho uniforme */}
             <div className="container">
-                <Link className="navbar-brand text-white" to="/">
-                    <img src={logo} alt="Logo" style={{ height: '40px', width: '70px' }} />
+                <Link className="navbar-brand" to="/">
+                    <img src={logo} alt="Logo" style={{ height: '40px', width: '150px' }} />
                 </Link>
-                
-                <div className="d-flex">
-                    <Link className="nav-link text-white mx-2" to="/">Inicio</Link>
-                    {/* Solo mostramos el Panel si es ADMIN */}
-                    {isAuthenticated && isAdmin && (
-                        <Link className="nav-link text-white" to="/dashboard">Panel de Control</Link>
-                    )}
-                    {/* Solo mostramos estos si está autenticado */}
-                    {isAuthenticated && (
-                        <>
-                            <Link className="nav-link text-white" to="/cart">
-                                <i className="bi bi-cart-check-fill"></i>
-                            </Link>
-                            <Link className="nav-link text-white" to="/sales">Ventas</Link>
-                        </>
-                    )}
-                </div>
 
-                <div>
-                    {/* 2. Operador ternario corregido */}
-                    {!isAuthenticated ? (
-                        <button onClick={() => loginWithRedirect()}>Iniciar Sesión</button>
-                    ) : (
-                        <>
-                            <p className="text-white">Hola, {user.name}</p>
-                            <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
-                                Cerrar Sesión
+                {/* Botón para menú en móviles */}
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    {/* Enlaces a la izquierda */}
+                    <ul className="navbar-nav me-auto">
+                      {isAuthenticated && (
+                        <li className="nav-item">
+                            <Link className="nav-link text-white" to="/">Inicio</Link>
+                        </li>
+                      )}
+                        {isAuthenticated && isAdmin && (
+                            <li className="nav-item">
+                                <Link className="nav-link text-white" to="/dashboard">Panel de Control</Link>
+                            </li>
+                        )}
+                        {isAuthenticated && (
+                            <li className="nav-item">
+                                <Link className="nav-link text-white" to="/sales">Mis compras</Link>
+                            </li>
+                        )}
+                    </ul>
+
+                    {/* Lado derecho: Carrito y Autenticación */}
+                    <div className="d-flex align-items-center">
+                        {isAuthenticated && (
+                            <Link className="nav-link text-white me-3" to="/cart">
+                                <i className="bi bi-cart-check-fill" style={{ fontSize: '1.5rem' }}></i>
+                            </Link>
+                        )}
+                        
+                        {!isAuthenticated ? (
+                            <button className="btn btn-outline-light btn-sm" onClick={() => loginWithRedirect()}>
+                                Iniciar Sesión
                             </button>
-                        </>
-                    )}
+                        ) : (
+                            <div className="dropdown">
+                                <button className="btn btn-link nav-link text-white dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    <img src={user?.picture} alt={user?.name} style={{ width: '30px', borderRadius: '50%', marginRight: '8px' }} />
+                                    {user?.name}
+                                </button>
+                                <ul className="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <button className="dropdown-item" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+                                            Cerrar Sesión
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </nav>

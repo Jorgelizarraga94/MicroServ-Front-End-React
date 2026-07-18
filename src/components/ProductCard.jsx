@@ -25,32 +25,34 @@ const ProductCard = ({ product }) => {
 };
   
   return (
-    <div className="card col-sm-12">
-      <div style={{ height: '10rem', width: '12rem', overflow: 'hidden' }}>
+    <div className="card col-sm-12 card-style" >
+      <div className="overflow-hidden height-10rem width-12rem">
         <img 
           src={getOptimizedUrl(product.photo)} // Usamos la URL optimizada
           alt={product.name}
         />
       </div>
       <div className="card-body">
-        <h5 className="card-title">{truncateText(product.name, 20)}</h5>
-        <p className="card-text">Precio: ${product.price}</p>
-        {isAuthenticated && (
-        <p className="card-text">cantidad: </p>
-        )}
-        {isAuthenticated && (
-        <input
-          type="number" 
-          min="1" 
-          value={cant} 
-          onChange={(e) => setCant(parseInt(e.target.value))} 
-          style={{ width: '50px' }}
-        />
-        )}
-        {isAuthenticated && (
-        <button className="btn btn-success" onClick={() => { addToCart(product,cant)}}>Agregar al Carrito</button>
-        )}
-      </div>
+        <div className="product-name-container">
+          <h6 className="product-name">{truncateText(product.name, 70)}</h6>
+        </div>
+        
+        <div className='text-center'>
+              <p className="card-text">Precio: $ {product.price.toLocaleString('es-AR')}</p>
+              {isAuthenticated && (
+              <p className="card-text">cantidad: <input
+                type="number" 
+                min="1" 
+                value={cant} 
+                onChange={(e) => setCant(parseInt(e.target.value))} 
+                style={{ width: '50px' }}
+              /> </p>
+            )}
+            {isAuthenticated && (
+              <button className="btn btn-success" onClick={() => { addToCart(product,cant)}}>Agregar al Carrito</button>
+            )}
+          </div>   
+        </div>                            
     </div>
   );
 };

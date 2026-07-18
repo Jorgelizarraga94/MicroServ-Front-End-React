@@ -1,6 +1,6 @@
 
 .counter {
-  font-size: 16px;
+  
   padding: 5px 10px;
   border-radius: 5px;
   color: var(--accent);
@@ -16,6 +16,29 @@
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
+}
+.card-style {
+  width: 13rem;
+  height: 25rem;
+}
+
+.product-name-container{
+  width: 11rem;
+  height: 4rem;
+}
+
+.product-name {
+  font-size: 14px;
+  color: #333; /* Color inicial (ejemplo: gris oscuro) */
+  text-decoration: none;
+  transition: color 0.3s ease; /* Hace que el cambio de color sea suave */
+  cursor: pointer;
+}
+
+
+/* Efecto al pasar el mouse */
+.product-name:hover {
+  color: #0088b1; /* El azul que usas en tu Navbar para que combine */
 }
 
 .hero {

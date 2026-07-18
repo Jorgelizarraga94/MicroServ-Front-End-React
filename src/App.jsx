@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import AdminDashboard from './pages/ControlPanel'; // Tu componente de tablero de control
 import HomePage from './pages/HomePage';
 import SalesPage from './pages/SalesPage';
@@ -37,15 +38,21 @@ const ProtectedPage = withAuthenticationRequired(CartPage,{
 function App() {
   return(
     <Router>
+      <div className="d-flex flex-column min-vh-100">
       <Navbar />
       <Toaster position="top-right" /> {/* Posición de las alertas */}
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/cart" element={<ProtectedPage />} />
-        <Route path="/sales" element={<SalesPage />} />
-        <Route path="/dashboard" element={<AdminDashboard />} />
-      </Routes>
+      <main className="flex-grow-1">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/cart" element={<ProtectedPage />} />
+          <Route path="/sales" element={<SalesPage />} />
+          <Route path="/dashboard" element={<AdminDashboard />} />
+        </Routes>
+      </main>
+      <Footer />
+      </div>
     </Router>
+    
   );
 }
 
