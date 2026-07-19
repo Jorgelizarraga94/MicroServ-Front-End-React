@@ -36,7 +36,6 @@ const ProductCard = ({ product }) => {
         <div className="product-name-container">
           <h6 className="product-name">{truncateText(product.name, 70)}</h6>
         </div>
-        
         <div className='text-center'>
               <p className="card-text">Precio: $ {product.price.toLocaleString('es-AR')}</p>
               {isAuthenticated && (

@@ -13,7 +13,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Auth0Provider
       domain="logintienda.us.auth0.com" // Cópialo de tu panel de Auth0
       clientId="uy2FyTdolSDsNkQFlkRHGAXpqmY4vV3M" // Cópialo de tu panel de Auth0
-      authorizationParams={{ redirect_uri: window.location.origin }}
+      authorizationParams={{ redirect_uri: window.location.origin ,
+        audience: "https://microserv.com.ar", // <--- ESTO ES LO MÁS IMPORTANTE
+        scope: "openid profile email"
+      }}
+      
     >
       <CartProvider>
       <App />

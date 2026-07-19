@@ -25,7 +25,7 @@ const Navbar = () => {
 
                 <div className="collapse navbar-collapse" id="navbarNav">
                     {/* Enlaces a la izquierda */}
-                    <ul className="navbar-nav me-auto">
+                    <ul className="navbar-nav">
                       {isAuthenticated && (
                         <li className="nav-item">
                             <Link className="nav-link text-white" to="/">Inicio</Link>
@@ -43,7 +43,12 @@ const Navbar = () => {
                         )}
                     </ul>
 
-                    {/* Lado derecho: Carrito y Autenticación */}
+                    
+                    <form class="d-flex mx-auto" role="search" style={{ width: '100%', maxWidth: '400px' }}>
+                      <input class="form-control me-auto" type="search" placeholder="Search" aria-label="Search"/>
+                      <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+
                     <div className="d-flex align-items-center">
                         {isAuthenticated && (
                             <Link className="nav-link text-white me-3" to="/cart">

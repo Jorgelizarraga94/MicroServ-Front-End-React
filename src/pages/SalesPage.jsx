@@ -8,12 +8,16 @@ const SalesPage = () => {
 
     useEffect(() => {
         const fetchSales = async () => {
+          const token = await getAccessTokenSilently();
+
+            const authConfig = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
             if (user?.sub) {
                 try {
-                    const token = await getAccessTokenSilently();
-                    const response = await axios.get(`http://localhost:8080/sale-service/sale/getSalesByUser/${user.sub}`, {
-                        headers: { Authorization: `Bearer ${token}` }
-                    });
+                    const response = await axios.get(`http://localhost:8080/sale-service/sale/getSalesByUser/${user.sub}`,authConfig);                    
                     setSales(response.data);
                 } catch (error) {
                     console.error("Error al obtener las ventas:", error);
@@ -21,12 +25,12 @@ const SalesPage = () => {
             }
         };
         fetchSales();
-    }, [user, getAccessTokenSilently]);
+    }, [user]);
 
     return (
         <div className="container mt-4">
-            <h2>Mis Ventas</h2>
-            {sales.length === 0 ? <p>No tienes ventas registradas.</p> : (
+            <h2>Mis Compras</h2>
+            {sales.length === 0 ? <p>No tienes compras registradas.</p> : (
                 <div className="table-responsive">
                     <table className="table table-bordered table-hover mt-3">
                         <thead className="table-light">

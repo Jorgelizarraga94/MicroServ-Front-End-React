@@ -58,7 +58,7 @@ const TablaProductos = ({ products, setProducts }) => {
           <tr key={p.id}>
             <td>{p.id}</td>
             <td>{truncateText(p.name, 100)}</td>
-            <td>${p.precio}</td>
+            <td>${p.price}</td>
 
             <td><button className="btn btn-danger" onClick={() => handleDelete(p.id)}>Eliminar</button></td>
           </tr>
@@ -69,7 +69,7 @@ const TablaProductos = ({ products, setProducts }) => {
 };
 
 const FormularioAgregar = () => {
-  const [product, setProduct] = useState({ name: '', marca: '', precio: '', photo: '' });
+  const [product, setProduct] = useState({ name: '', brand: '', price: '', photo: '' });
 
     const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -97,8 +97,8 @@ const FormularioAgregar = () => {
       <h3>Subir nuevo producto</h3>
       <input type="file" onChange={handleImageUpload} className="form-control mb-2" />
       <input className="form-control mb-2" placeholder="Nombre" onChange={e => setProduct({...product, name: e.target.value})} />
-      <input className="form-control mb-2" placeholder="Marca" onChange={e => setProduct({...product, marca: e.target.value})} />
-      <input className="form-control mb-2" placeholder="Precio" onChange={e => setProduct({...product, precio: e.target.value})} />
+      <input className="form-control mb-2" placeholder="Marca" onChange={e => setProduct({...product, brand: e.target.value})} />
+      <input className="form-control mb-2" placeholder="Precio" onChange={e => setProduct({...product, price: e.target.value})} />
       <button onClick={saveProduct} className="btn btn-success">Guardar</button>
     </div>
   );
