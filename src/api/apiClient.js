@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-    baseURL: 'http://localhost:8080', // Tu API Gateway
+    baseURL: 'https://blizzardly-bailee-unnotified.ngrok-free.dev ', // API Gateway antes localhost 8080
 });
 
 export default apiClient;
