@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
+import apiClient from '../api/apiClient';
 
 
 
@@ -37,8 +38,8 @@ const CartPage = () => {
         const token = await getAccessTokenSilently();
 
         // 1. Guardamos la promesa LIMPIA de axios
-        const miPromesa = axios.post(
-            `http://localhost:8080/sale-service/sale/createSale/${user.sub}/${cartId}`,
+        const miPromesa = apiClient.post(
+            `/sale-service/sale/createSale/${user.sub}/${cartId}`,
             {}, 
             { headers: { Authorization: `Bearer ${token}` } }
         );

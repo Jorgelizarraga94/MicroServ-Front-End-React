@@ -19,7 +19,7 @@ export const CartProvider = ({ children }) => {
             };
     try {
       
-      const res = await apiClient.get(`http://localhost:8080/cart-service/cart/${id}`,authConfig);
+      const res = await apiClient.get(`/cart-service/cart/${id}`,authConfig);
       setCart(res.data.items || []);
     } catch (error) {
       console.error("No se pudo cargar el carrito:", error);
@@ -82,7 +82,7 @@ const removeFromCart = async (productId) => {
       console.log("Intentando eliminar. cartId actual es:", cartId);
     console.log("Producto a eliminar:", productId);
         // Llamada al backend para eliminar el producto del carrito específico
-        await apiClient.delete(`http://localhost:8080/cart-service/cart/delete/${cartId}/${productId}`, authConfig);
+        await apiClient.delete(`/cart-service/cart/delete/${cartId}/${productId}`, authConfig);
         
         // Recargamos el carrito tras eliminar
         await new Promise(resolve => setTimeout(resolve, 100));

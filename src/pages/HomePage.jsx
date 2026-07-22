@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 import Carrousel from '../components/Carrousel';
+import apiClient from '../api/apiClient';
 const HomePage = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/product-service/product/products')
+    apiClient.get('product-service/product/products')
       .then(res => setProducts(res.data))
       .catch(err => console.error(err));
   }, []);

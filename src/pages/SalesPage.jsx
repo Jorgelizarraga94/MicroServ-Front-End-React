@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
+import apiClient from '../api/apiClient';
 
 const SalesPage = () => {
     const { user, getAccessTokenSilently } = useAuth0();
@@ -17,7 +18,7 @@ const SalesPage = () => {
             };
             if (user?.sub) {
                 try {
-                    const response = await axios.get(`http://localhost:8080/sale-service/sale/getSalesByUser/${user.sub}`,authConfig);                    
+                    const response = await apiClient.get(`/sale-service/sale/getSalesByUser/${user.sub}`,authConfig);                    
                     setSales(response.data);
                 } catch (error) {
                     console.error("Error al obtener las ventas:", error);

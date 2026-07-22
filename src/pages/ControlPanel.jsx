@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import apiClient from '../api/apiClient';
 
 const ControlPanel = () => {
   const [products, setProducts] = useState([]);
@@ -11,7 +12,7 @@ const ControlPanel = () => {
   }, []);
 
   const fetchProducts = async () => {
-    const res = await axios.get('http://localhost:8080/product-service/product/products');
+    const res = await apiClient.get('/product-service/product/products');
     setProducts(res.data);
   };
 
@@ -42,7 +43,7 @@ const ControlPanel = () => {
 // Componente de tabla que recibe la lista
 const TablaProductos = ({ products, setProducts }) => {
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:8080/product-service/product/delete/${id}`);
+    await apiClient.delete(`/product-service/product/delete/${id}`);
     // Esto es lo que hace la "magia": actualiza la lista al instante
     setProducts(products.filter(p => p.id !== id));
   };
@@ -88,7 +89,7 @@ const FormularioAgregar = () => {
   };
 
   const saveProduct = async () => {
-    await axios.post('http://localhost:8080/product-service/product/create', product);
+    await apiClient.post('/product-service/product/create', product);
     alert("Producto guardado con éxito!");
   };
 
