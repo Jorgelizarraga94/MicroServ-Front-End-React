@@ -33,8 +33,6 @@ const ProtectedPage = withAuthenticationRequired(CartPage,{
   onRedirecting: () => <div>Redirigiendo a login...</div>,
 });
 
-
-
 function App() {
   return(
     <Router>
