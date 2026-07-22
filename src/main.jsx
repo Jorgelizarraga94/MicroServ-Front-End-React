@@ -23,5 +23,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <App />
       </CartProvider>
     </Auth0Provider>
-   
 );
