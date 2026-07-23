@@ -19,7 +19,6 @@ const ControlPanel = () => {
   return (
     <div className="container mt-4">
       <div className="row">
-        {/* Sidebar */}
         <div className="col-md-3">
           <div className="list-group">
             <button className="list-group-item" onClick={() => setView('add')}>Agregar</button>
@@ -27,7 +26,6 @@ const ControlPanel = () => {
           </div>
         </div>
 
-        {/* Contenido Dinámico */}
         <div className="col-md-9">
           {view === 'add' ? (
             <FormularioAgregar />
@@ -76,7 +74,7 @@ const FormularioAgregar = () => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'mi_tienda_preset'); // El que creaste en Cloudinary
+    formData.append('upload_preset', 'mi_tienda_preset');
 
     // Subir a Cloudinary
     const res = await axios.post(
