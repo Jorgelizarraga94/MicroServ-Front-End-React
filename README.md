@@ -1,17 +1,50 @@
-# React + Vite
+# 💻 Frontend - E-commerce Microserv (React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interfaz de usuario desarrollada para la tienda online, conectada a la arquitectura de microservicios backend.
 
-Currently, two official plugins are available:
+## 🌐 Acceso y Despliegue
+* **Producción:** El proyecto se encuentra accesible en https://micro-serv-front-end-react.vercel.app.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Tecnologías y Librerías Utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **React**
+* **Vite** (Herramienta de empaquetado y desarrollo rápido)
+* **Bootstrap** (Framework CSS para el diseño responsivo y componentes visuales)
+* **Axios** (Cliente HTTP centralizado, configurado para saltar las advertencias de redirección de Ngrok mediante el header `ngrok-skip-browser-warning`).
+* **Auth0 React SDK** (Autenticación y gestión de sesiones de usuario)
+* **Vercel** (Plataforma de despliegue en producción)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# MicroServ-Front-End-React
+## 🛠️ Funcionalidades Destacadas
+
+* **Panel de Administración (`ControlPanel.jsx`):** Sección exclusiva para usuarios administradores que permite cargar nuevos productos y eliminarlos de forma dinámica.
+  * **Credenciales de Acceso Administrador (Demo):**
+    * **Usuario:** `admin@gmail.com`
+    * **Contraseña:** `admin1234@`
+* **Optimización de Imágenes:** Integración con **Cloudinary** para almacenar y optimizar recursos visuales, consumiendo las URLs provistas por el backend.
+
+---
+
+## 🚧 Próximas Mejoras y Pendientes
+
+* **Barra de Búsqueda:** Finalizar la implementación de la barra de búsqueda en tiempo real para el catálogo.
+* **Filtrado por Categoría:** Adaptar tanto el backend como el frontend para incorporar un nuevo campo de **Categoría** en los productos y permitir su filtrado dinámico.
+
+---
+
+## 🤖 Nota sobre el Desarrollo
+
+Dado que el desarrollo frontend no es mi fuerte principal, este apartado fue construido con el valioso soporte y guía de **Inteligencia Artificial** como herramienta de asistencia técnica para estructurar componentes, integrar Bootstrap, configurar Auth0, armar el panel de control y resolver los desafíos de comunicación y CORS con el backend.
+
+---
+
+## 📂 Estructura del Proyecto
+
+* `src/api/`: Configuración centralizada de Axios (`apiclient.js`) para la conexión con el API Gateway vía Ngrok.
+* `src/components/`: Componentes visuales reutilizables (barras de navegación, tarjetas, carrusel, etc.).
+* `src/pages/`: Vistas principales de la aplicación, incluyendo el catálogo, el carrito y el panel de control (`ControlPanel.jsx`).
+
+---
